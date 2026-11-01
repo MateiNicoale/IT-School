@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Diablo IV Season 15 – Leveling Co-op</title>
+<style>
+:root{
+  --bg:#0a0807; --card:#15100e; --card2:#1d1512; --line:#3a2620;
+  --red:#8b1a1a; --red2:#b32222; --gold:#d4a843; --gold2:#f0cf7a;
+  --text:#e8dcc8; --muted:#a39682; --green:#2f8f4a;
+}
+*{box-sizing:border-box}
+html,body{margin:0;overflow-x:hidden}
+body{background:radial-gradient(ellipse at top,#1c0c0a 0,var(--bg) 60%) fixed;color:var(--text);
+  font:16px/1.45 Georgia,"Times New Roman",serif;-webkit-text-size-adjust:100%}
+.wrap{max-width:720px;margin:0 auto;padding:16px}
+h1{font-size:1.35rem;text-align:center;color:var(--gold);letter-spacing:.06em;text-transform:uppercase;margin:8px 0 14px;text-shadow:0 0 12px #5a0f0f}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab{flex:1;min-height:56px;padding:8px 6px;background:var(--card);color:var(--muted);border:1px solid var(--line);border-radius:8px;
+  font:inherit;font-size:.92rem;font-weight:bold;cursor:pointer}
+.tab[aria-selected="true"]{background:linear-gradient(#5a1010,#2e0a0a);color:var(--gold2);border-color:var(--gold);box-shadow:0 0 10px #5a0f0f}
+.panel[hidden]{display:none}
+.card{background:var(--card);border:1px solid var(--line);border-left:3px solid var(--red2);border-radius:8px;padding:14px;margin-bottom:16px}
+.card h2{margin:0 0 10px;font-size:1.1rem;color:var(--gold);text-transform:uppercase;letter-spacing:.05em}
+.bar{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sk{display:flex;flex-direction:column;align-items:center;text-align:center;gap:6px;background:var(--card2);border:1px solid var(--line);border-radius:8px;padding:10px 4px;font-size:.85rem;font-weight:bold}
+.sk img,.sk .ph{width:56px;height:56px}
+ul.km{margin:0;padding-left:20px}
+ul.km li{margin-bottom:8px}
+.note{color:var(--muted);font-size:.9rem;margin:0 0 12px;padding:10px;border:1px dashed var(--line);border-radius:6px}
+.head{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:10px}
+.head h2{margin:0}
+.prog{color:var(--muted);font-size:.9rem}
+.reset{min-height:44px;padding:0 16px;background:var(--red);color:#fff;border:1px solid var(--red2);border-radius:8px;font:inherit;font-weight:bold;cursor:pointer}
+.row{display:flex;align-items:center;gap:10px;min-height:60px;padding:8px 10px;margin-bottom:6px;background:var(--card);border:1px solid var(--line);border-radius:8px;cursor:pointer;transition:opacity .15s}
+.row.done{opacity:.4}
+.row.free{border-color:var(--green)}
+.row.swap{background:linear-gradient(90deg,#3d2c08,#241a06);border:1px solid var(--gold);box-shadow:0 0 10px #4a380a}
+.num{flex:0 0 auto;min-width:44px;text-align:center;font-weight:bold;color:var(--gold);font-size:.95rem}
+.row img,.row .ph{flex:0 0 40px;width:40px;height:40px}
+img{border-radius:6px;background:#000;display:block}
+.ph{border-radius:50%;background:radial-gradient(#5a1010,#220808);border:1px solid var(--gold);color:var(--gold2);display:flex;align-items:center;justify-content:center;font-weight:bold;font-size:.8rem}
+.txt{flex:1;min-width:0;overflow-wrap:anywhere;font-size:.95rem}
+.txt b{color:var(--gold2)}
+.badge{display:inline-block;margin-top:4px;padding:2px 8px;border-radius:10px;background:var(--green);color:#fff;font-size:.75rem;font-weight:bold}
+.lvl{display:inline-block;margin-bottom:4px;padding:2px 10px;border-radius:4px;background:var(--gold);color:#1a1000;font-weight:bold;font-size:.85rem;letter-spacing:.04em}
+.row input{flex:0 0 28px;width:28px;height:28px;accent-color:var(--red2);cursor:pointer}
+footer{text-align:center;color:var(--muted);font-size:.9rem;padding:16px 0 24px}
+footer a{color:var(--gold);display:inline-block;padding:6px 0;overflow-wrap:anywhere}
+@media(max-width:380px){.tab{font-size:.8rem}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<h1>Diablo IV – Season 15 Leveling</h1>
+<div class="tabs" role="tablist">
+  <button class="tab" role="tab" id="tab-p1" aria-controls="p1" aria-selected="true" data-p="p1">Player 1 – Druid (Lightning Storm)</button>
+  <button class="tab" role="tab" id="tab-p2" aria-controls="p2" aria-selected="false" data-p="p2">Player 2 – Sorcerer (Charged Bolts)</button>
+</div>
+<div id="p1" class="panel" role="tabpanel"></div>
+<div id="p2" class="panel" role="tabpanel" hidden></div>
+<footer>
+  Sursă: Icy Veins – Season 15<br>
+  <a href="https://www.icy-veins.com/d4/guides/lightning-storm-druid-leveling-build/" target="_blank" rel="noopener">https://www.icy-veins.com/d4/guides/lightning-storm-druid-leveling-build/</a><br>
+  <a href="https://www.icy-veins.com/d4/guides/charged-bolts-sorcerer-leveling-build/" target="_blank" rel="noopener">https://www.icy-veins.com/d4/guides/charged-bolts-sorcerer-leveling-build/</a>
+</footer>
+</div>
+
+<script>
+(function(){
+var BASE="https://wp.icy-veins.com/static/d4/latest/images/icons/";
+function icon(c){
+  var p=c.charAt(0),n=c.slice(1);
+  var m={D:"2DUI_Skills_Druid_",S:"2DUI_Skills_Sorceress_",R:"2DUI_Talents_Refresh_",T:"2DUI_SkillTreeV2_"};
+  return BASE+m[p]+n+".webp";
+}
+function initials(s){
+  var w=s.replace(/[^A-Za-z ]/g," ").split(/\s+/).filter(Boolean);
+  return ((w[0]||"?").charAt(0)+(w[1]?w[1].charAt(0):"")).toUpperCase();
+}
+function img(code,name,size){
+  var i=document.createElement("img");
+  i.loading="lazy";i.referrerPolicy="no-referrer";i.alt=name;
+  i.width=size;i.height=size;
+  i.src=icon(code);
+  i.onerror=function(){
+    var d=document.createElement("div");
+    d.className="ph";d.textContent=initials(name);d.title=name;
+    if(i.parentNode)i.parentNode.replaceChild(d,i);
+  };
+  return i;
+}
+function el(t,c,h){var e=document.createElement(t);if(c)e.className=c;if(h!=null)e.innerHTML=h;return e;}
+
+// row: [number|"FREE"|"SWAP Lvl N", skill, node, icon]
+var PLAYERS={
+p1:{
+  title:"Player 1 – Druid (Lightning Storm)",
+  bar:[["Claw","D83"],["Lightning Storm","D96"],["Blood Howl","D87"],["Poison Creeper","D71"],["Wolves – Werewolf Pack","D116"],["Petrify","D47"]],
+  key:[
+    "<b>Lvl 15:</b> quest „Druid: Spirits of the Lost Grove” → <b>Spirit Boons</b>. Ia mai întâi <b>Gift of the Stag</b>. Boons: Gift of the Stag, Scythe Talons, Swooping Attacks, Energize, Overload.",
+    "<b>Lvl 30:</b> <b>Claw</b> primește <b>Dash</b>. <b>Lvl 32:</b> <b>Lightning Storm</b> → <b>Hero of the Storm</b> (pornește storm-ul, apoi sari între inamici cu Claw).",
+    "<b>Boss-uri:</b> schimbă Lightning Storm pe varianta <b>Omnibolt</b>."
+  ],
+  pts:[
+    ["1","Claw","rank 1","D83"],["2","Lightning Storm","rank 1","D96"],["3","Lightning Storm","rank 2","D96"],
+    ["4","Blood Howl","rank 1","D87"],["5","Claw","Spirit","R21"],["6","Lightning Storm","Additional Strikes","R31"],
+    ["7","Blood Howl","Healing","R38"],["8","Wolves","rank 1","D79"],["9","Claw","Cast Speed","R79"],
+    ["10","Lightning Storm","Movement Speed","R16"],["11","Blood Howl","Movement Speed","R16"],
+    ["12","Lightning Storm","rank 3","D96"],["13","Poison Creeper","rank 1","D71"],
+    ["FREE","Claw","Werewolf form","T12"],["14","Claw","Viper Strikes","D83"],
+    ["FREE","Lightning Storm","Human form","T16"],["15","Lightning Storm","Supercell","D96"],
+    ["FREE","Blood Howl","Werewolf form","T12"],["16","Blood Howl","Spirit Howl","D87"],
+    ["17","Wolves","Attack Speed","R79"],["18","Poison Creeper","Fortify","R11"],["19","Petrify","rank 1","D47"],
+    ["FREE","Wolves","Versatile form","D79"],["20","Wolves","Werewolf Pack","D116"],
+    ["FREE","Poison Creeper","Versatile form","D71"],["21","Poison Creeper","Additional Poison Creeper","R31"],
+    ["22","Petrify","Spirit","R20"],["23","Lightning Storm","rank 4","D96"],["24","Petrify","Resolve","R12"],
+    ["FREE","Petrify","Human form","T16"],["25","Petrify","Greater Petrify","D47"],["26","Lightning Storm","rank 5","D96"],
+    ["SWAP Lvl 30","Claw","remove Viper Strikes → add Dash","D83"],
+    ["SWAP Lvl 32","Lightning Storm","remove Supercell → add Hero of the Storm","D96"],
+    ["27–36","Lightning Storm","rank 6 → 15","D96"],["37–50","Claw","rank 2 → 15","D83"],
+    ["51–64","Petrify","rank 2 → 15","D47"],["65–78","Wolves","rank 2 → 15","D79"],
+    ["79–83","Poison Creeper","rank 2 → 6","D71"]
+  ]
+},
+p2:{
+  title:"Player 2 – Sorcerer (Charged Bolts)",
+  bar:[["Arc Lash","S54"],["Charged Bolts","S3"],["Teleport","S7"],["Ice Armor","S45"],["Frost Nova","S73"],["Unstable Currents","S105"]],
+  key:[
+    "<b>Lvl 15:</b> quest „Legacy of the Magi” → <b>Enchantment</b> slot 1 = <b>Ice Armor</b> (se activează când bei o poțiune).",
+    "<b>Lvl 30:</b> <b>Enchantment</b> slot 2 = <b>Frost Nova</b>.",
+    "<b>Lvl 32 (opțional, necesită Lord of Hatred):</b> respec pe versiunea Fire (<b>Firework</b>, <b>Burn Through</b>, <b>Inferno</b>) din ghidul Icy Veins.",
+    "<b>Rotație:</b> <b>Teleport</b> în inamici → <b>Frost Nova</b> → spamează <b>Charged Bolts</b>, stând aproape de elite/boss-uri → <b>Unstable Currents</b> pe elite/boss-uri. <b>Arc Lash</b> pentru Mana și Ferocity. <b>Ball Lightning</b> este declanșat automat de Unstable Currents (nu e pe bară)."
+  ],
+  pts:[
+    ["1","Arc Lash","rank 1","S54"],["2","Charged Bolts","rank 1","S3"],["3","Teleport","rank 1","S7"],
+    ["4","Arc Lash","Ferocity","R12"],["5","Charged Bolts","Damage Bonus","R54"],["6","Ice Armor","rank 1","S45"],
+    ["7","Ice Armor","Resource Regeneration","R17"],["8","Arc Lash","Resource Generation","R21"],
+    ["9","Charged Bolts","Movement Speed","R16"],["10","Ice Armor","Duration Bonus and Barrier","R10"],
+    ["11","Teleport","Ferocity","R12"],["12","Teleport","Movement Speed","R16"],["13","Arc Lash","Full Lash","S54"],
+    ["14","Charged Bolts","Surging Charge","S3"],["15","Ice Armor","Permafrost","S45"],["16","Teleport","Wormhole","S7"],
+    ["17","Charged Bolts","rank 2","S3"],["18","Unstable Currents","rank 1","S105"],
+    ["19–20","Charged Bolts","rank 3 → 4","S3"],["21","Unstable Currents","Ferocity","R12"],
+    ["22","Charged Bolts","rank 5","S3"],["23","Unstable Currents","Damage Bonus","R61"],
+    ["24","Unstable Currents","Boundless","S105"],["25","Charged Bolts","rank 6","S3"],
+    ["26","Frost Nova","rank 1","S73"],["27","Frost Nova","Vulnerable","R1"],
+    ["28","Frost Nova","Resource Generation","R20"],["29","Frost Nova","Cold Front","S73"],
+    ["30–38","Charged Bolts","rank 7 → 15","S3"],["39–52","Unstable Currents","rank 2 → 15","S105"],
+    ["53","Ball Lightning","rank 1","S34"],["54","Ball Lightning","Ferocity","R12"],
+    ["55","Ball Lightning","Crackling Energy","R18"],["56","Ball Lightning","Implosion","S178"],
+    ["57–70","Frost Nova","rank 2 → 15","S73"],["71–83","Ice Armor","rank 2 → 14","S45"]
+  ]
+}};
+
+var NOTE="Fiecare punct nou (level up sau Season Journey) merge în următorul rând. Dacă un nod e încă blocat de nivel, pune punctul în următorul și revino.";
+
+function load(k){try{var v=JSON.parse(localStorage.getItem("d4s15_"+k));return Array.isArray(v)?v:[];}catch(e){return [];}}
+function save(k,a){try{localStorage.setItem("d4s15_"+k,JSON.stringify(a));}catch(e){}}
+
+function build(key){
+  var P=PLAYERS[key], root=document.getElementById(key);
+  var checked=load(key);
+
+  // skill bar
+  var c1=el("section","card");c1.appendChild(el("h2",null,"Skill bar"));
+  var bar=el("div","bar");
+  P.bar.forEach(function(s){
+    var d=el("div","sk");d.appendChild(img(s[1],s[0],56));d.appendChild(el("span",null,s[0]));bar.appendChild(d);
+  });
+  c1.appendChild(bar);root.appendChild(c1);
+
+  // key moments
+  var c2=el("section","card");c2.appendChild(el("h2",null,"Momente cheie"));
+  var ul=el("ul","km");P.key.forEach(function(t){ul.appendChild(el("li",null,t));});
+  c2.appendChild(ul);root.appendChild(c2);
+
+  // list
+  var c3=el("section","card");
+  var head=el("div","head");
+  head.appendChild(el("h2",null,"Puncte de skill (83)"));
+  var prog=el("span","prog");head.appendChild(prog);
+  var rb=el("button","reset","Reset");rb.type="button";head.appendChild(rb);
+  c3.appendChild(head);
+  c3.appendChild(el("p","note",NOTE));
+
+  var rows=[];
+  P.pts.forEach(function(r,idx){
+    var kind=r[0]==="FREE"?"free":(r[0].indexOf("SWAP")===0?"swap":"");
+    var row=el("label","row "+kind);
+    if(kind==="free"||kind==="swap"){/* no number */}
+    else row.appendChild(el("div","num",r[0]));
+    row.appendChild(img(r[3],r[1],40));
+    var t=el("div","txt");
+    if(kind==="swap"){
+      t.appendChild(el("div","lvl",r[0].replace("SWAP ","")));
+      var node=r[2].replace("remove","scoate").replace("add","pune");
+      t.appendChild(el("div",null,"<b></b>"));
+      t.lastChild.firstChild.textContent=r[1];
+      t.lastChild.appendChild(document.createTextNode(" → "+node));
+    }else{
+      var line=el("div");var b=el("b");b.textContent=r[1];line.appendChild(b);
+      line.appendChild(document.createTextNode(" → "+r[2]));t.appendChild(line);
+      if(kind==="free")t.appendChild(el("span","badge","GRATIS – nu consumă punct"));
+    }
+    row.appendChild(t);
+    var cb=document.createElement("input");cb.type="checkbox";
+    cb.setAttribute("aria-label",r[1]+" "+r[2]);
+    cb.checked=checked.indexOf(idx)>-1;
+    row.classList.toggle("done",cb.checked);
+    cb.addEventListener("change",function(){
+      row.classList.toggle("done",cb.checked);
+      persist();
+    });
+    row.appendChild(cb);
+    c3.appendChild(row);
+    rows.push({row:row,cb:cb});
+  });
+
+  function persist(){
+    var a=[];rows.forEach(function(r,i){if(r.cb.checked)a.push(i);});
+    save(key,a);
+    prog.textContent=a.length+" / "+rows.length;
+  }
+  rb.addEventListener("click",function(){
+    if(!confirm("Resetezi progresul pentru "+P.title+"?"))return;
+    rows.forEach(function(r){r.cb.checked=false;r.row.classList.remove("done");});
+    persist();
+  });
+  prog.textContent=checked.filter(function(i){return i<rows.length;}).length+" / "+rows.length;
+  root.appendChild(c3);
+}
+
+build("p1");build("p2");
+
+// tabs
+var tabs=document.querySelectorAll(".tab");
+function show(p){
+  tabs.forEach(function(t){t.setAttribute("aria-selected",String(t.dataset.p===p));});
+  ["p1","p2"].forEach(function(id){document.getElementById(id).hidden=(id!==p);});
+}
+tabs.forEach(function(t){t.addEventListener("click",function(){show(t.dataset.p);});});
+})();
+</script>
+</body>
+</html>
