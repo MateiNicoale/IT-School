@@ -188,8 +188,6 @@ function build(key){
   P.pts.forEach(function(r,idx){
     var kind=r[0]==="FREE"?"free":(r[0].indexOf("SWAP")===0?"swap":"");
     var row=el("label","row "+kind);
-    if(kind==="free"||kind==="swap"){/* no number */}
-    else row.appendChild(el("div","num",r[0]));
     row.appendChild(img(r[3],r[1],40));
     var t=el("div","txt");
     if(kind==="swap"){
